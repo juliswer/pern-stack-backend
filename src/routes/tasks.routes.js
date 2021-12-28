@@ -1,10 +1,9 @@
 const { Router } = require('express');
+const {getAllTasks} = require('../controllers/tasks.controller');
 
 const router = Router();
 
-router.get('/tasks', async (req, res) => {
-    res.send('retrieven a list of tasks')
-})
+router.get('/tasks', getAllTasks);
 
 router.get('/tasks/10', (req, res) => {
     res.send('Return only one task');
