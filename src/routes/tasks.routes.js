@@ -2,8 +2,8 @@ const { Router } = require('express');
 
 const router = Router();
 
-router.get('/tasks', (req, res) => {
-    res.send('Return all tasks');
+router.get('/tasks', async (req, res) => {
+    res.send('retrieven a list of task')
 })
 
 router.get('/tasks/10', (req, res) => {
