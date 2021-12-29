@@ -1,3 +1,5 @@
+const pool = require('../db');
+
 const getAllTasks = async (req, res) => {
     res.send('retrieven a list of tasks')
 }
@@ -6,10 +8,13 @@ const getTask = (req, res) => {
     res.send('Return only one task')
 }
 
-const createTask = (req, res) => {
+const createTask = async (req, res) => {
     const { title, description } = req.body;
 
-    console.log(title, description)
+    const result = await pool.query('INSERT INTO task (title, description) VALUES ($1, $2) RETURNING *', [title, description]);
+
+    console.log(result)
+    
 }
 
 const deleteTask = (req, res) => {
