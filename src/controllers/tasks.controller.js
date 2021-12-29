@@ -11,9 +11,12 @@ const getTask = (req, res) => {
 const createTask = async (req, res) => {
     const { title, description } = req.body;
 
-    const result = await pool.query('INSERT INTO task (title, description) VALUES ($1, $2) RETURNING *', [title, description]);
-
-    console.log(result)
+    try {
+        const result = await pool.query('INSERT INTO task (title, description) VALUES ($1, $2) RETURNING *', [title, description]);
+        res.json(result.rows[0]);
+    } catch (error) {
+        res.json({error: error.message});
+    }
     
 }
 
