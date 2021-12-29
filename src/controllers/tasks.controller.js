@@ -7,7 +7,9 @@ const getTask = (req, res) => {
 }
 
 const createTask = (req, res) => {
-    res.send('Creating a new task');
+    const { title, description } = req.body;
+
+    console.log(title, description)
 }
 
 const deleteTask = (req, res) => {
