@@ -9,8 +9,12 @@ const getAllTasks = async (req, res) => {
     }
 }
 
-const getTask = (req, res) => {
-    res.send('Return only one task')
+const getTask = async (req, res) => {
+    const {id} = req.params;
+
+    const result = await pool.query("SELECT * FROM task WHERE id = $1", [id])
+
+    res.json(result.rows[0]);
 }
 
 const createTask = async (req, res) => {
