@@ -10,11 +10,15 @@ const getAllTasks = async (req, res) => {
 }
 
 const getTask = async (req, res) => {
-    const {id} = req.params;
+    try {
+        const {id} = req.params;
 
-    const result = await pool.query("SELECT * FROM task WHERE id = $1", [id])
+        const result = await pool.query("SELECT * FROM task WHERE id = $1", [id])
 
-    res.json(result.rows[0]);
+        res.json(result.rows[0]);
+    } catch (error) {
+        res.json({error: error.message});
+    }
 }
 
 const createTask = async (req, res) => {
@@ -29,8 +33,16 @@ const createTask = async (req, res) => {
     
 }
 
-const deleteTask = (req, res) => {
-    res.send('Deleting a task');
+const deleteTask = async (req, res) => {
+    try {
+        const {id} = req.params
+
+        const result = await pool.query("DELETE FROM task WHERE id = $1", [id])
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        res.json({error: error.message});
+    }
 }
 
 const updateTask = (req, res) => {
